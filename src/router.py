@@ -10,12 +10,16 @@ def route_event(event):
         if isinstance(body, str):
             body = json.loads(body)
         locais = body.get('locais', [])
-        return calcular_distancias(locais)
+        origem = body.get('origem')
+        destino = body.get('destino')
+        return calcular_distancias(origem, destino, locais)
     elif event['path'] == '/calcular_melhor_rota':
         if isinstance(body, str):
             body = json.loads(body)
         locais = body.get('locais', [])
-        return calcular_melhor_rota(locais)
+        origem = body.get('origem')
+        destino = body.get('destino')
+        return calcular_melhor_rota(origem, destino, locais)
     elif event['path'] == '/calcular_custo_combustivel':
         if isinstance(body, str):
             body = json.loads(body)

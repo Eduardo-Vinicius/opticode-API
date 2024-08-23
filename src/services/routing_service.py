@@ -1,11 +1,15 @@
 from src.services.distance_service import calcular_distancias
 import itertools
 
-def calcular_melhor_rota(locais):
+
+def calcular_melhor_rota(origem, destino_fixo, locais):
     """Calcula a melhor rota baseada nas distâncias entre os pontos"""
-    distancias = calcular_distancias(locais)
+    distancias = calcular_distancias(origem, destino_fixo, locais)
+    print(distancias)
     melhor_rota = optimize_route(locais, distancias)
+    print(melhor_rota)
     return melhor_rota
+
 
 def optimize_route(locais, distancias):
     """Algoritmo para encontrar a rota mais curta (simplificado)"""
