@@ -1,5 +1,5 @@
 import googlemaps
-from src.config import GOOGLE_MAPS_API_KEY
+from app.config import GOOGLE_MAPS_API_KEY
 
 # Inicializa o cliente do Google Maps
 gmaps = googlemaps.Client(key=GOOGLE_MAPS_API_KEY)

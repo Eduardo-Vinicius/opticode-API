@@ -1,5 +1,5 @@
 import json
-from src.router import route_event
+from app.function.router import route_event
 
 def lambda_handler(event, context):
     try:

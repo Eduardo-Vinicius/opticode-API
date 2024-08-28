@@ -1,6 +1,6 @@
 import json
 import pytest
-from src.handler import lambda_handler
+from app.function.handler import lambda_handler
 
 def test_lambda_handler_calcular_distancias():
     locais = [

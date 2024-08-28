@@ -1,8 +1,8 @@
 import json
 
-from src.services.distance_service import calcular_distancias
-from src.services.routing_service import calcular_melhor_rota
-from src.services.fuel_service import calcular_custo_combustivel
+from app.services.distance_service import calcular_distancias
+from app.services.routing_service import calcular_melhor_rota
+from app.services.fuel_service import calcular_custo_combustivel
 
 def route_event(event):
     body = event.get('body', {})

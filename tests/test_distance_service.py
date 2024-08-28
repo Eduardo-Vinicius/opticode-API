@@ -1,5 +1,5 @@
 import pytest
-from src.services.distance_service import calcular_distancias
+from app.services.distance_service import calcular_distancias
 
 def mock_get_distances(locais, destinos):
     """ Função mock para simular o comportamento de get_distances """
