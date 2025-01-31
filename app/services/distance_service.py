@@ -21,19 +21,17 @@ def calculate_distances(origin, fixed_destination, destinations):
     
     return result
 
+
 def calculate_estimated_time(distance_km):
     average_speed_kmh = 50
     time_hours = distance_km / average_speed_kmh
     minutes = time_hours * 60
     return f"{int(minutes)} mins"
 
-def generate_status(index, total_locations):
-    if index == 0:
-        return "starting"
-    elif index == total_locations - 1:
-        return "done"
-    else:
-        return "waiting"
+
+def generate_status(index):
+    return "starting" if index == 0 else "waiting"
+
 
 def find_best_route(distances):
     locations = list(distances.keys())
@@ -58,7 +56,7 @@ def find_best_route(distances):
     for index, location in enumerate(best_route):
         distance_to_next = 0 if index == len(best_route) - 1 else distances[location][best_route[index + 1]]
         estimated_time = calculate_estimated_time(distance_to_next)
-        status = generate_status(index, len(best_route))
+        status = generate_status(index)  # ✅ Agora apenas o primeiro será "starting", os demais "waiting"
         
         total_estimated_time += distance_to_next / 50 * 60
         
@@ -70,14 +68,11 @@ def find_best_route(distances):
         })
     
     result_json["total_estimated_time"] = f"{int(total_estimated_time // 60)} hours {int(total_estimated_time % 60)} mins"
-
     return result_json
 
+
 if __name__ == '__main__':
-
-
     # Exemplo de Teste 1
-
     origin = 'Rua Onze, 30 - Jardim Monte verde - Sao Paulo - SP'
     fixed_destination = 'Aeroporto de Congonhas'
     destinations = [
