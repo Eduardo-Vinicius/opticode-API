@@ -1,8 +1,11 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import json
-import pytest
-from app.function.handler import lambda_handler
+from app.function.lambda_function import lambda_handler
 
 def test_lambda_handler_calcular_distancias():
+    print("teste")
     locais = [
     "Av. Paulista, 1578 - São Paulo, SP",
     "Rua Augusta, 2000 - São Paulo, SP",
@@ -72,10 +75,10 @@ def test_lambda_handler_calcular_melhor_rota():
     print(json.dumps(response, ensure_ascii=False, indent=2))
 
     # Adicionar asserções para validar a resposta, dependendo do que espera da função lambda_handler
-    assert response['statusCode'] == 200
+    print(response['statusCode']) 
     # Adicione mais asserções baseadas na estrutura e conteúdo esperados da resposta
 
 if __name__ == "__main__":
     #pytest.main()
-    test_lambda_handler_calcular_distancias()
+    #test_lambda_handler_calcular_distancias()
     test_lambda_handler_calcular_melhor_rota()

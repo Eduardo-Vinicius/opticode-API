@@ -1,5 +1,5 @@
 import pytest
-from app.services.distance_service import calcular_distancias
+from app.services.distance_service import calculate_distances
 
 def mock_get_distances(locais, destinos):
     """ Função mock para simular o comportamento de get_distances """
@@ -25,7 +25,7 @@ def test_calcular_distancias():
     global get_distances
     get_distances = mock_get_distances
 
-    distancias = calcular_distancias(origem, destino_fixo, destinos)
+    distancias = calculate_distances(origem, destino_fixo, destinos)
 
     assert len(distancias) == len(destinos) + 1  # Inclui o destino fixo
     assert distancias["Rua Augusta, 2000 - São Paulo, SP"] > 0
