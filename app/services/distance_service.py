@@ -3,7 +3,7 @@ import itertools
 import json
 sys.path.append('C:/Users/Eduardo Vinicius/Documents/Repositories/opticode-API')
 
-from app.utils.google_maps_client import get_distances
+from app.clients.google_maps_client import get_distances
 
 def calculate_distances(origin, fixed_destination, destinations):
     locations = [origin] + destinations + [fixed_destination]
