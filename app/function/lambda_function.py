@@ -5,8 +5,12 @@ def lambda_handler(event, context):
     try:
         print("Evento recebido:", json.dumps(event))  # Log para debug
 
+        path = ""
         # O path correto vem direto do evento no API Gateway
-        path = event.get("requestContext", {}).get("http", {}).get("path", "")
+        if event.get('origin') == 'lambda':
+            path = event.get("path", "")
+        else:
+            path = event.get("requestContext", {}).get("http", {}).get("path", "")
 
         # Body pode estar codificado como string JSON, então precisa ser carregado corretamente
         body = event.get("body", "{}")
