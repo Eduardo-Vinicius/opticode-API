@@ -7,12 +7,13 @@ from app.services.vehicle_service import atualizar_veiculo, buscar_veiculo, cria
 def route_event(event):
     path = event.get("path", "")
     body = event.get("body", "{}")
-    method = event.get("method", "{}")
-    queryParams = "" # Pegar um exemplo de onde vem a query Params
+    method = event.get("method", "")
+    params = event.get("params", "{}")
 
     print(event)
     print(path)
     print(method)
+    print(params)
 
     # Garante que 'body' seja um dicionário válido
     if isinstance(body, str):
@@ -20,6 +21,14 @@ def route_event(event):
             body = json.loads(body)
         except json.JSONDecodeError:
             return {"error": "Formato de JSON inválido"}
+        
+    if isinstance(params, str):
+        try:
+            params = json.loads(params)
+        except json.JSONDecodeError:
+            return {"error": "Formato de JSON inválido"}
+    
+    query_params = params.get("queryStringParameters", {})
 
     # Roteamento das requisições
     if path == "/route/calculate-distance":
@@ -42,6 +51,7 @@ def route_event(event):
         )
     
     elif path == "/veiculos":
+        id = query_params.get("id") if query_params else None
         if method == "POST":
             return criar_veiculo(
                 placa=body.get("placa"), 
@@ -52,7 +62,10 @@ def route_event(event):
                 km_litro=body.get("km_litro", 0)
             )
         elif method == "GET":
-            return listar_veiculos()
+            if not id:
+                return listar_veiculos()
+            else:
+                return buscar_veiculo(id)
         elif method == "PUT":
             return atualizar_veiculo(
                 id=body.get("id"), 
@@ -63,9 +76,6 @@ def route_event(event):
                 total_km=body.get("total_km", 0), 
                 km_litro=body.get("km_litro", 0)
             )
-    elif queryParams != None and path == "/veiculos/{id}": #TODO(): Validar no event como vem o queryParams
-        if method == "GET":
-            return buscar_veiculo(id)
         elif method == "DELETE":
             return deletar_veiculo(id)
 
